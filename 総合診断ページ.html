@@ -436,36 +436,38 @@
         }
 
         function updateRadarChart(labels, data) {
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
 
-            const ctx = radarChart.getContext("2d");
-            chartInstance = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '診断結果',
-                        data: data,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scale: {
-                        ticks: {
-                            beginAtZero: true,
-                            min: 1,
-                            max: 5,
-                            stepSize: 1
-                        }
+    const ctx = radarChart.getContext("2d");
+    chartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '診断結果',
+                data: data,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 5,
+                    stepSize: 1,
+                    ticks: {
+                        stepSize: 1
                     }
                 }
-            });
-            
+            }
         }
+    });
+}
 
         function showJobRecommendations(scores) {
             const recommendations = calculateRecommendations(scores);
